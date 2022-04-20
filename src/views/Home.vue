@@ -1,18 +1,33 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <van-checkbox-group v-model="result" @change="changeGroup">
+      <van-checkbox :name="item" v-for="item in data" :key="item">复选框 {{item}}</van-checkbox>
+    </van-checkbox-group>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+  data () {
+    return {
+      result: ['a', 'b', 'c', 'd', 'e'],
+      data: ['a', 'b', 'c', 'd', 'e'],
+      last: []
+    }
+  },
+  methods: {
+    changeGroup (data) {
+      console.log('data', data)
+      if (data.length === 1) {
+        this.last = data
+      }
+      // this.result = ['a', 'b']
+      if (data.length === 0) {
+        this.result = this.last
+      }
+    }
   }
 }
 </script>
